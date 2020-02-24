@@ -1,4 +1,4 @@
-class ProblemsController < ProtectedController
+class ProblemsController < OpenReadController
   before_action :set_problem, only: [:show, :update, :destroy]
 
   # GET /problems
