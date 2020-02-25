@@ -2,6 +2,10 @@
 
 For some students word problems can be a real drag, but are essential for a childs critical thinking abilities. "What's Your Problem?" is designed to help students become more excited about solving word problems.
 
+## ERD
+
+![ERD](whats-your-problem-erd.png)
+
 ## User stories
 
 - As a user I would like to search for a word problem.
@@ -32,27 +36,97 @@ Install with `bundle install`.
 -   [`ruby`](https://www.ruby-lang.org/en/)
 -   [`postgres`](http://www.postgresql.org)
 
+### Problems Endpoints and Curl Scripts
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| GET   | `/problems`  | `problems#index` |
+| GET   | `/problems/:id`  | `problems#show`  |
+| POST   | `/problems-create`             | `problems#create`    |
+| PATCH  | `/problems-update`     | `problems#update`  |
+| DELETE | `/problems/:id`        | `problems#destroy`   |
 
-### Customize Template:
-1.  Empty [`README.md`](README.md) and fill with your own content.
-1.  Rename your app module in `config/application.rb` (change
-    `RailsApiTemplate`).
-1.  Rename your project database in `config/database.yml` (change
-    `'rails-api-template'`).
+#### GET /problems
 
-### Setup Environment:
-1.  Install dependencies with `bundle install`.
-1.  `git add` and `git commit` your changes.
-1.  Create a `.env` for sensitive settings (`touch .env`).
-1.  Generate new `development` and `test` secrets (`bundle exec rails secret`).
-1.  Store them in `.env` with keys `SECRET_KEY_BASE_<DEVELOPMENT|TEST>`
-    respectively.
-1.  In order to make requests to your deployed API, you will need to set
-    `SECRET_KEY_BASE` in the environment of the production API (for example, using `heroku config:set` or the Heroku dashboard).
-1.  In order to make requests from your deployed client application, you will
-    need to set `CLIENT_ORIGIN` in the environment of the production API (for example, `heroku config:set CLIENT_ORIGIN=https://<github-username>.github.io`).
-    See more about deploying to heroku [rails-heroku-setup-guide](https://git.generalassemb.ly/ga-wdi-boston/rails-heroku-setup-guide)
+Request:
 
+```sh
+curl "http://localhost:4741/problems" \
+  --include \
+  --request GET \
+
+```
+
+#### GET /problems/:id
+
+Request:
+
+```sh
+curl "http://localhost:4741/problems/${ID}" \
+  --include \
+  --request GET \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+
+```
+
+#### POST /problems
+
+Request:
+
+```sh
+curl "http://localhost:4741/problems" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "problem": {
+      "name": "'"${NAME}"'",
+      "content": "'"${CONTENT}"'",
+      "hint": "'"${HINT}"'",
+      "solution": "'"${SOLUTION}"'",
+      "answer": "'"${ANSWER}"'",
+      "category": "'"${CAT}"'",
+      "rating": "'"${RATING}"'"
+    }
+  }'
+
+```
+#### PATCH /problems/:id
+
+Request:
+
+```sh
+curl "http://localhost:4741/problems/${ID}" \
+  --include \
+  --request PATCH \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "problem": {
+      "name": "'"${NAME}"'",
+      "content": "'"${CONTENT}"'",
+      "hint": "'"${HINT}"'",
+      "solution": "'"${SOLUTION}"'",
+      "answer": "'"${ANSWER}"'",
+      "category": "'"${CAT}"'",
+      "rating": "'"${RATING}"'"
+    }
+  }'
+
+```
+
+#### DELETE /problems/:id
+
+Request:
+
+```sh
+curl "http://localhost:4741/problems/${ID}" \
+  --include \
+  --request DELETE \
+  --header "Authorization: Token token=${TOKEN}" \
+
+```
 
 
 ### Authentication Endpoints and Curl Scripts
