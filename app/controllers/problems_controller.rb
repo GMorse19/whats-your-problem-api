@@ -38,6 +38,31 @@ class ProblemsController < OpenReadController
     @problem.destroy
   end
 
+  # PATCH /like
+  # def upvote
+  #   @problem = Problem.find(params[:id])
+  #   @problem.upvote_from current_user
+  # end
+
+  def upvote
+    # current_user = User.find_by_id(session[:user_id])
+    @problem = Problem.find(params[:id])
+    current_user.upvotes @problem
+    # redirect_to :back
+  end
+
+  # PATCH /unlike
+  # def downvote
+  #   @problem = Problem.find(params[:id])
+  #   @problem.downvote_from current_user
+  # end
+
+  def downvote
+    @problem = Problem.find(params[:id])
+    @problem.downvote_by current_user
+    # redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_problem
