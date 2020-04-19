@@ -7,6 +7,8 @@ curl "http://localhost:4741/sign-in" \
   --data '{
     "credentials": {
       "email": "'"${EMAIL}"'",
+      "username": "'"${NAME}"'",
+      "identifier": "'"${IDENT}"'",
       "password": "'"${PASSWORD}"'"
     }
   }'
