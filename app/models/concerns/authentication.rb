@@ -4,9 +4,10 @@ module Authentication
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def authenticate(username, email, password)
-      user = User.find_by(username: username) || User.find_by(email: email)
-      return if user.blank?
+    def authenticate(identifier, password)
+      user = User.where(email: identifier)
+                 .or(User.where(username: identifier)).take
+      return unless user
 
       user.send :new_token
       user.authenticate password
