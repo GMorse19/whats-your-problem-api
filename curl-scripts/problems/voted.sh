@@ -1,6 +1,6 @@
-curl "http://localhost:4741/problems/${ID}/likes" \
+curl "http://localhost:4741/problems/${ID}/voted" \
   --include \
-  --request PUT \
+  --request GET \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}" \
 

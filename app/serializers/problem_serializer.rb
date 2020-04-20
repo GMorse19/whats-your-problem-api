@@ -8,6 +8,8 @@ class ProblemSerializer < ActiveModel::Serializer
              :answer,
              :category,
              :user,
-             :votes_for
+             :votes_for,
+             :cached_votes_total,
+             :cached_votes_score
   has_one :user
 end

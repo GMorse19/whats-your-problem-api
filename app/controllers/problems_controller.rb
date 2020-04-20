@@ -63,6 +63,15 @@ class ProblemsController < OpenReadController
     # redirect_to :back
   end
 
+  # def like
+  #   @problem = Problem.find(params[:id])
+  #   if Problem.where(current_user.votes.voter_id == '2')
+  #     current_user.downvotes @problem
+  #   elsif Problem.where(current_user.votes.voter_id == '1')
+  #     current_user.upvotes @problem
+  #   end
+  # end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_problem

@@ -1,4 +1,4 @@
-curl "http://localhost:4741/problems/${ID}/likes" \
+curl "http://localhost:4741/problems/${ID}/like" \
   --include \
   --request PUT \
   --header "Content-Type: application/json" \
