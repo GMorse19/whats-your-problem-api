@@ -10,6 +10,8 @@ class ProblemSerializer < ActiveModel::Serializer
              :user,
              :votes_for,
              :cached_votes_total,
-             :cached_votes_score
+             :cached_votes_score,
+             :cached_votes_up,
+             :cached_weighted_average
   has_one :user
 end

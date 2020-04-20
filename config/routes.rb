@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     member do
       put 'like', to: 'problems#upvote'
       put 'unlike', to: 'problems#downvote'
-      put 'likes', to: 'problems#like'
+      get 'likes', to: 'problems#like'
       get 'voted', to: 'problems#voted'
     end
   end

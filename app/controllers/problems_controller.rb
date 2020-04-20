@@ -63,6 +63,13 @@ class ProblemsController < OpenReadController
     # redirect_to :back
   end
 
+  def like
+    @problem = Problem.find(params[:id])
+
+    render json: @problem.votes_for.where(current_user.id == :voter_id)
+                         .pluck(:vote_flag)
+  end
+
   # def like
   #   @problem = Problem.find(params[:id])
   #   if Problem.where(current_user.votes.voter_id == '2')
