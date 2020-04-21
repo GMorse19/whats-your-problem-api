@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       put 'like', to: 'problems#upvote'
       put 'unlike', to: 'problems#downvote'
       get 'likes', to: 'problems#like'
-      get 'voted', to: 'problems#voted'
     end
   end
 
@@ -19,6 +18,4 @@ Rails.application.routes.draw do
   delete '/sign-out' => 'users#signout'
   patch '/change-password' => 'users#changepw'
   patch '/update-user' => 'users#update'
-  # patch '/like' => 'problems#upvote'
-  # patch '/unlike' => 'problems#downvote'
 end

@@ -38,24 +38,11 @@ class ProblemsController < OpenReadController
     @problem.destroy
   end
 
-  # PATCH /like
-  # def upvote
-  #   @problem = Problem.find(params[:id])
-  #   @problem.upvote_from current_user
-  # end
-
   def upvote
-    # current_user = User.find_by_id(session[:user_id])
     @problem = Problem.find(params[:id])
     current_user.upvotes @problem
     # redirect_to :back
   end
-
-  # PATCH /unlike
-  # def downvote
-  #   @problem = Problem.find(params[:id])
-  #   @problem.downvote_from current_user
-  # end
 
   def downvote
     @problem = Problem.find(params[:id])
@@ -65,19 +52,12 @@ class ProblemsController < OpenReadController
 
   def like
     @problem = Problem.find(params[:id])
+    if current_user
 
-    render json: @problem.votes_for.where(current_user.id == :voter_id)
+    render html: @problem.votes_for.where(voter_id: [current_user.id])
                          .pluck(:vote_flag)
+    end
   end
-
-  # def like
-  #   @problem = Problem.find(params[:id])
-  #   if Problem.where(current_user.votes.voter_id == '2')
-  #     current_user.downvotes @problem
-  #   elsif Problem.where(current_user.votes.voter_id == '1')
-  #     current_user.upvotes @problem
-  #   end
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
