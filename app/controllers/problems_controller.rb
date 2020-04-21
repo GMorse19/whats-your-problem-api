@@ -38,6 +38,27 @@ class ProblemsController < OpenReadController
     @problem.destroy
   end
 
+  def upvote
+    @problem = Problem.find(params[:id])
+    current_user.upvotes @problem
+    # redirect_to :back
+  end
+
+  def downvote
+    @problem = Problem.find(params[:id])
+    @problem.downvote_by current_user
+    # redirect_to :back
+  end
+
+  def like
+    @problem = Problem.find(params[:id])
+    if current_user
+
+    render html: @problem.votes_for.where(voter_id: [current_user.id])
+                         .pluck(:vote_flag)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_problem
