@@ -6,8 +6,16 @@ RSpec.describe UsersController do
   def user_params
     {
       email: 'alice@example.com',
+      username: 'alice',
       password: 'foobarbaz',
       password_confirmation: 'foobarbaz'
+    }
+  end
+
+  def user_creds
+    {
+      identifier: 'alice',
+      password: 'foobarbaz'
     }
   end
 
@@ -33,7 +41,7 @@ RSpec.describe UsersController do
   describe 'POST signin' do
     before(:each) do
       post :signup, params: { credentials: user_params }, format: :json
-      post :signin, params: { credentials: user_params }, format: :json
+      post :signin, params: { credentials: user_creds }, format: :json
     end
 
     it 'is successful' do
@@ -49,7 +57,7 @@ RSpec.describe UsersController do
   context 'when authenticated' do
     before(:each) do
       post :signup, params: { credentials: user_params }, format: :json
-      post :signin, params: { credentials: user_params }, format: :json
+      post :signin, params: { credentials: user_creds }, format: :json
 
       @token = JSON.parse(response.body)['user']['token']
       request.env['HTTP_AUTHORIZATION'] = "Token token=#{@token}"
