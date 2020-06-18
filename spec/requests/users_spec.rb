@@ -6,8 +6,16 @@ RSpec.describe 'Authentication API' do
   def user_params
     {
       email: 'alice@example.com',
+      username: 'alice',
       password: 'foobarbaz',
       password_confirmation: 'foobarbaz'
+    }
+  end
+
+  def user_creds
+    {
+      identifier: 'alice@example.com',
+      password: 'foobarbaz'
     }
   end
 
@@ -37,7 +45,7 @@ RSpec.describe 'Authentication API' do
 
     describe 'POST /sign-in' do
       it 'returns a token' do
-        post '/sign-in', params: { credentials: user_params }
+        post '/sign-in', params: { credentials: user_creds }
 
         expect(response).to be_success
 
@@ -61,7 +69,7 @@ RSpec.describe 'Authentication API' do
 
     before(:each) do
       post '/sign-up', params: { credentials: user_params }
-      post '/sign-in', params: { credentials: user_params }
+      post '/sign-in', params: { credentials: user_creds }
 
       @token = JSON.parse(response.body)['user']['token']
       @user_id = JSON.parse(response.body)['user']['id']
