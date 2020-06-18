@@ -101,5 +101,30 @@ RSpec.describe UsersController do
         expect(response.body).to be_empty
       end
     end
+
+    describe 'PATCH update' do
+      def new_username_params
+        {
+          username: 'alison',
+          email: 'foo@baz',
+          password: 'foobarbaz'
+        }
+      end
+
+      before(:each) do
+        patch :update,
+              params: { id: @user_id,
+                        credentials: new_username_params },
+              format: :json
+      end
+
+      it 'is successful' do
+        expect(response).to be_successful
+      end
+
+      it 'renders no response body' do
+        expect(response.body).to be_empty
+      end
+    end
   end
 end
