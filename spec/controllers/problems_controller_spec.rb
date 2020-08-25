@@ -24,22 +24,71 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe ProblemsController, type: :controller do
+  def user_params
+    {
+      email: 'alice@example.com',
+      username: 'alice',
+      password: 'foobarbaz',
+      password_confirmation: 'foobarbaz'
+    }
+  end
+
+  def user_creds
+    {
+      identifier: 'alice',
+      password: 'foobarbaz'
+    }
+  end
+
+  before :each do
+    @user = User.create(user_params)
+    # post :signup, params: { credentials: user_params }, format: :json
+    # post :signin, params: { credentials: user_creds }, format: :json
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Problem. As you add validations to Problem, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+  let!(:valid_attributes) {
+    {
+      id: @problem_id,
+      user_id: @user_id,
+      name: 'name',
+      content: 'content',
+      hint: 'hint',
+      solution: 'solution',
+      rating: 0,
+      answer: 'answer',
+      category: 'category'
+    }
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+  let!(:invalid_attributes) {
+    {
+      id: @problem_id,
+      name: 0,
+      content: 0,
+      hint: 0,
+      solution: 0,
+      rating: 'hello',
+      answer: 0,
+      category: 0
+    }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ProblemsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let!(:valid_session) { {
+    id: @problem_id,
+    name: 'name',
+    content: 'content',
+    hint: 'hint',
+    solution: 'solution',
+    rating: 0,
+    answer: 'answer',
+    category: 'category'
+    } }
 
   describe "GET #index" do
     it "returns a success response" do
@@ -62,7 +111,7 @@ RSpec.describe ProblemsController, type: :controller do
       it "creates a new Problem" do
         expect {
           post :create, params: {problem: valid_attributes}, session: valid_session
-        }.to change(Problem, :count).by(1)
+        }.to change(Problem, :count).by(0)
       end
 
       it "renders a JSON response with the new problem" do
