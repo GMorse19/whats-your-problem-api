@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   patch '/change-password' => 'users#changepw'
   patch '/update-user' => 'users#update'
   get '/checkname' => 'users#checkname'
+  get '/checkemail' => 'users#checkemail'
 end
