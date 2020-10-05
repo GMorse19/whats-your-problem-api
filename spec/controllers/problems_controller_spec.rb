@@ -42,16 +42,15 @@ RSpec.describe ProblemsController, type: :controller do
 
   before :each do
     @user = User.create(user_params)
-    # post :signup, params: { credentials: user_params }, format: :json
-    # post :signin, params: { credentials: user_creds }, format: :json
+    post :signup, params: { credentials: user_params }, format: :json
+    post :signin, params: { credentials: user_creds }, format: :json
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Problem. As you add validations to Problem, be sure to
   # adjust the attributes here as well.
-  let!(:valid_attributes) {
+  let(:valid_attributes) {
     {
-      id: @problem_id,
       user_id: @user_id,
       name: 'name',
       content: 'content',
@@ -63,9 +62,9 @@ RSpec.describe ProblemsController, type: :controller do
     }
   }
 
-  let!(:invalid_attributes) {
+  let(:invalid_attributes) {
     {
-      id: @problem_id,
+      user_id: @user_id,
       name: 0,
       content: 0,
       hint: 0,
@@ -79,8 +78,8 @@ RSpec.describe ProblemsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ProblemsController. Be sure to keep this updated too.
-  let!(:valid_session) { {
-    id: @problem_id,
+  let(:valid_session) { {
+    user_id: @user_id,
     name: 'name',
     content: 'content',
     hint: 'hint',
@@ -111,7 +110,7 @@ RSpec.describe ProblemsController, type: :controller do
       it "creates a new Problem" do
         expect {
           post :create, params: {problem: valid_attributes}, session: valid_session
-        }.to change(Problem, :count).by(0)
+        }.to change(Problem, :count).by(1)
       end
 
       it "renders a JSON response with the new problem" do
